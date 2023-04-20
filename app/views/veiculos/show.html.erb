@@ -1,0 +1,23 @@
+<div class="page-header">
+  <%= link_to veiculos_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
+  <%= link_to edit_veiculo_path(@veiculo), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Editar
+  <% end %>
+  <h1>Mostar veiculo</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Marca:</dt>
+  <dd><%= @veiculo.marca %></dd>
+
+  <dt>Cor:</dt>
+  <dd><%= @veiculo.cor %></dd>
+
+  <dt>Qnt passageiros:</dt>
+  <dd><%= @veiculo.qnt_passageiros %></dd>
+
+</dl>
