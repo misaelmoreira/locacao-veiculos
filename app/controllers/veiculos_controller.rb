@@ -25,7 +25,7 @@ class VeiculosController < ApplicationController
 
     respond_to do |format|
       if @veiculo.save
-        format.html { redirect_to veiculo_url(@veiculo), notice: "Veiculo was successfully created." }
+        format.html { redirect_to veiculo_url(@veiculo), notice: "Veiculo foi criado com sucesso." }
         format.json { render :show, status: :created, location: @veiculo }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -65,6 +65,6 @@ class VeiculosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def veiculo_params
-      params.require(:veiculo).permit(:marca, :cor, :qnt_passageiros)
+      params.require(:veiculo).permit(:nome, :cor, :qnt_passageiros, :placa, :valor, :marca_id)
     end
 end

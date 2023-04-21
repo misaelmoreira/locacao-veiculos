@@ -10,17 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_20_113001) do
+ActiveRecord::Schema.define(version: 2023_04_21_231351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "veiculos", force: :cascade do |t|
-    t.string "marca"
-    t.string "cor"
-    t.integer "qnt_passageiros"
+  create_table "marcas", force: :cascade do |t|
+    t.string "nome"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "veiculos", force: :cascade do |t|
+    t.string "nome"
+    t.string "cor"
+    t.integer "qnt_passageiros"
+    t.string "placa"
+    t.decimal "valor"
+    t.bigint "marca_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marca_id"], name: "index_veiculos_on_marca_id"
+  end
+
+  add_foreign_key "veiculos", "marcas"
 end

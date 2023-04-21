@@ -17,7 +17,7 @@ class VeiculosControllerTest < ActionDispatch::IntegrationTest
 
   test "should create veiculo" do
     assert_difference('Veiculo.count') do
-      post veiculos_url, params: { veiculo: { cor: @veiculo.cor, marca: @veiculo.marca, qnt_passageiros: @veiculo.qnt_passageiros } }
+      post veiculos_url, params: { veiculo: { cor: @veiculo.cor, marca_id: @veiculo.marca_id, nome: @veiculo.nome, placa: @veiculo.placa, qnt_passageiros: @veiculo.qnt_passageiros, valor: @veiculo.valor } }
     end
 
     assert_redirected_to veiculo_url(Veiculo.last)
@@ -34,7 +34,7 @@ class VeiculosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update veiculo" do
-    patch veiculo_url(@veiculo), params: { veiculo: { cor: @veiculo.cor, marca: @veiculo.marca, qnt_passageiros: @veiculo.qnt_passageiros } }
+    patch veiculo_url(@veiculo), params: { veiculo: { cor: @veiculo.cor, marca_id: @veiculo.marca_id, nome: @veiculo.nome, placa: @veiculo.placa, qnt_passageiros: @veiculo.qnt_passageiros, valor: @veiculo.valor } }
     assert_redirected_to veiculo_url(@veiculo)
   end
 
