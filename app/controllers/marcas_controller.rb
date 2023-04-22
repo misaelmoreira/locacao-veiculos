@@ -1,4 +1,4 @@
-class MarcasController < ApplicationController
+class MarcasController < AdministradorsController
   before_action :set_marca, only: %i[ show edit update destroy ]
 
   # GET /marcas or /marcas.json
