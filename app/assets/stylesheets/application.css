@@ -13,3 +13,33 @@
  *= require_tree .
  *= require_self
  */
+
+.imgCarros{
+    max-height: 250px;
+    display: block;
+    margin: auto;
+    width: auto;
+}
+
+.detalhesVeiculos{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-around;
+   margin: 5px 0px;
+   border: 1px solid #ccc;
+   padding: 15px;
+   align-items: center;
+}
+
+.detalhesVeiculos .detalhesVeiculosContainer{
+  text-align: center;
+}
+
+.detalhesVeiculos .detalhesVeiculosContainer .card-text{
+  font-weight: bold;
+}
+
+#navbarSupportedContent li{
+  margin-right: 20px;
+}
+

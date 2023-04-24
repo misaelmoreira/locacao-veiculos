@@ -39,3 +39,9 @@ pasta lib -> templates -> scaffold
 
 # Form
 Reserva.create(veiculo_id: Veiculo.first.id, cliente_id: Cliente.first.id, tempo_de_espera: 10, valor_alugado: 310, reservado_de: Time.now, reservado_ate: Time.now + 3.days, pagamento_no_destino: true)
+
+# Adicionando migrations
+rails g migration add addLoginToUsuario login:string
+
+
+# Parado 1,14

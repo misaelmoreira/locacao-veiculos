@@ -9,7 +9,7 @@ class LoginAdministradorController < ApplicationController
     administrador = Administrador.login(params[:login], params[:senha])    
     if administrador.present?
       cookies[:administrador] = administrador.nome
-      redirect_to '/'
+      redirect_to '/administradors'
     end
   end
 
