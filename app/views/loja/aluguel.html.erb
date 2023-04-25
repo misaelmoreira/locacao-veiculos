@@ -1,0 +1,112 @@
+<div class="container">
+    <div class="row " >
+        <div class="col-lg-7 itemLista">              
+            <div class="col-lg-4">
+                <p><%= @veiculo.nome %></p>  
+                <img href="" src="https://combustivel.app/imgs/t650/consumo-onix-lt-1-0.jpg" style="width: 100%"/>
+            </div>        
+            <div class="col-lg-6 detalhesContainer">
+                <div class="detalhesVeiculo">
+                    <p class="card-text">Qntd Passageiros</p>
+                    <p><%= @veiculo.qnt_passageiros %></p>      
+                </div>
+                <div class="detalhesVeiculo">
+                    <p class="card-text">Marca</p>
+                    <p><%= @veiculo.marca.nome %></p>      
+                </div>
+                <div class="detalhesVeiculo">
+                    <p class="card-text">Cor</p>
+                    <p><%= @veiculo.cor %></p>      
+                </div>   
+            </div>        
+            <div class="col-lg-6 ofertasInfo">
+                <h4>Incluso no preço:</h4>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <p>Melhor preco Garantido</p>
+                            </div>
+                            <div class="col-lg-7">
+                                <p>Sem taxa de alteraçao</p>
+                            </div>
+                            <div class="row">
+                                <p>Taxas da Locadoraa</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div> 
+        <div class="col-lg-4 pagamentoContainer">
+            <form action="/alugar/<%= @veiculo.id %>" method="POST">
+                <div class="col-sm-12">
+                    <div class="row" style="border-bottom: 1px solid #fff;">
+                        <p style="text-align: center; font-weight: bold; font-size: 1.5em;"> <%= @veiculo.nome%> </p>
+                    </div>
+                    <dl classs="dl-horizontal" style="text-align: center">
+                        <dt>Valor/Dia</dt>
+                        <dd>
+                            <%= number_to_currency(@veiculo.valor)%>
+                        </dd>
+                        <dt>Qnt Dias</dt>
+                        <dd>
+                            <select name="dias" id="dias" class="custom-select" style="max-width: 90px" onchange="atualizaTotal(<%= @veiculo.valor%>)">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                        </dd>
+                        <dt>Valor Total</dt>
+                        <dd>
+                            <p id="valorTotal"><%= number_to_currency(@veiculo.valor)%></p>
+                        </dd>
+                    </dl>
+                </div>
+                <input type="submit" value="Alugar" class="btn btn-success" style="margin: auto; display: block; padding: 9px 32px; font-size: 1.2em;">    
+            </form>  
+        </div>  
+    </div>
+</div>
+
+
+<script>
+    function atualizaTotal(valorVeiculo) {
+        const qntDias = document.getElementById('dias').value;
+        document.getElementById('valorTotal').innerText = `R$ ${parseInt(qntDias) * valorVeiculo}`;
+    }
+</script>
+
+<style>
+
+.pagamentoContainer{
+    background-color: #ccc;
+    margin-left: 25px; 
+    padding: 15px;
+}
+
+.ofertasInfo p{
+    color: green;
+}
+
+.itemLista{
+    background-color: #ccc;
+    padding: 15px;    
+}
+
+.detalhesContainer{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    border-bottom: 1px solid #000;
+}
+
+.detalhesContainer .card-text {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+</style>
