@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_24_082014) do
+ActiveRecord::Schema.define(version: 2023_05_06_161450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 2023_04_24_082014) do
 
   create_table "reservas", force: :cascade do |t|
     t.bigint "veiculo_id"
-    t.bigint "cliente_id"
     t.integer "tempo_de_espera"
     t.decimal "valor_alugado"
     t.datetime "reservado_de"
@@ -50,7 +49,9 @@ ActiveRecord::Schema.define(version: 2023_04_24_082014) do
     t.boolean "pagamento_no_destino"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["cliente_id"], name: "index_reservas_on_cliente_id"
+    t.string "status"
+    t.bigint "usuario_id"
+    t.index ["usuario_id"], name: "index_reservas_on_usuario_id"
     t.index ["veiculo_id"], name: "index_reservas_on_veiculo_id"
   end
 
@@ -79,7 +80,7 @@ ActiveRecord::Schema.define(version: 2023_04_24_082014) do
     t.index ["marca_id"], name: "index_veiculos_on_marca_id"
   end
 
-  add_foreign_key "reservas", "clientes"
+  add_foreign_key "reservas", "usuarios"
   add_foreign_key "reservas", "veiculos"
   add_foreign_key "veiculos", "marcas"
 end

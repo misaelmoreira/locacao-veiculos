@@ -14,4 +14,5 @@
 //= require activestorage
 //= require turbolinks
 //= require bootstrap
+//= require card-js
 //= require_tree .

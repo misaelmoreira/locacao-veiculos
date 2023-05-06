@@ -7,6 +7,9 @@ ruby '2.4.1'
 gem 'bootstrap-generators', '~> 3.3.4'
 gem 'record_tag_helper', '~> 1.0'
 
+# Lib cartao de credito
+gem 'card-js-rails', '~> 1.0', '>= 1.0.13.1'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.8', '>= 5.2.8.1'
 # Use postgresql as the database for Active Record
