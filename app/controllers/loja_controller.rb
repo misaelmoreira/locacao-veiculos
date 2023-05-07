@@ -9,16 +9,18 @@ class LojaController < UsuariosController
   end
 
   def alugar
-    debugger
-    if params[:cardNumber].present? && params[:cardName].present? && params[:expirationDate].present? && params[:cvv].present?      
-      
+    if params[:cardNumber].present? && params[:cardName].present? && params[:expirationDate].present? && params[:cvv].present? 
       if params[:dias].present?
         dias = params[:dias].to_i        
         @valor_total = dias * @veiculo.valor
-        debugger
-        reserva = Reserva.new(reservado_de: Time.now, reservado_ate: Time.now + dias.days, valor_alugado: @valor_total, status: Reserva::STATUS[:aguardando], veiculo_id: @veiculo.id, usuario_id: cookies[:usuario])
-        if reserva.save!
-          redirect_to "/confirmacao_pagamento/#{reserva.id} "
+        if cookies[:usuario].present?
+          reserva = Reserva.new(reservado_de: Time.now, reservado_ate: Time.now + dias.days, valor_alugado: @valor_total, status: Reserva::STATUS[:aguardando], veiculo_id: @veiculo.id, usuario_id: cookies[:usuario])
+          if reserva.save!
+            redirect_to "/confirmacao_pagamento/#{reserva.id} "
+            return
+          end
+        else 
+          redirect_to "/login"
           return
         end
       end

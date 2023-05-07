@@ -1,13 +1,6 @@
-class UsuariosController < ApplicationController
-  layout 'usuarios'
+class UsuariosAdministradorsController < ApplicationController
   before_action :set_usuario, only: %i[ show edit update destroy ]
-  # before_action :authenticate_user!
 
-  def authenticate_user!
-    if cookies[:usuario].blank?
-      redirect_to '/login'
-    end
-  end 
 
   # GET /usuarios or /usuarios.json
   def index
@@ -30,7 +23,7 @@ class UsuariosController < ApplicationController
     respond_to do |format|
       if @usuario.save
         cookies[:usuarios] = @usuario.id
-        format.html { redirect_to '/', notice: "Usuario was successfully created." }
+        format.html { redirect_to '/usuarios_administradors', notice: "Usuario was successfully created." }
         format.json { render :show, status: :created, location: @usuario }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,7 +36,7 @@ class UsuariosController < ApplicationController
   def update
     respond_to do |format|
       if @usuario.update(usuario_params)
-        format.html { redirect_to usuario_url(@usuario), notice: "Usuario was successfully updated." }
+        format.html { redirect_to usuarios_administradors_path(@usuario), notice: "Usuario was successfully updated." }
         format.json { render :show, status: :ok, location: @usuario }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +50,7 @@ class UsuariosController < ApplicationController
     @usuario.destroy
 
     respond_to do |format|
-      format.html { redirect_to usuarios_url, notice: "Usuario was successfully destroyed." }
+      format.html { redirect_to '/usuarios_administradors', notice: "Usuario was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -73,3 +66,4 @@ class UsuariosController < ApplicationController
       params.require(:usuario).permit(:nome, :cpf, :endereco, :numero, :cep, :estado, :login, :senha)
     end
 end
+

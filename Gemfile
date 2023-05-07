@@ -10,6 +10,9 @@ gem 'record_tag_helper', '~> 1.0'
 # Lib cartao de credito
 gem 'card-js-rails', '~> 1.0', '>= 1.0.13.1'
 
+# jquery 
+gem 'jquery-rails', '~> 4.4'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.8', '>= 5.2.8.1'
 # Use postgresql as the database for Active Record

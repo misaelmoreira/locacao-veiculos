@@ -43,3 +43,5 @@ Reserva.create(veiculo_id: Veiculo.first.id, cliente_id: Cliente.first.id, tempo
 # Adicionando migrations
 rails g migration addLoginToUsuario login:string
 
+
+# 

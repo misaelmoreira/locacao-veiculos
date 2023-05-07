@@ -1,9 +1,9 @@
 <div class="page-header">
   <%%= link_to new_<%= singular_table_name %>_path, class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-plus"></span>
-    Novo <%= human_name %>
+    New <%= human_name %>
   <%% end %>
-  <h1>Listando <%= plural_table_name %></h1>
+  <h1>Listing <%= plural_table_name %></h1>
 </div>
 
 <div class="table-responsive">
@@ -24,9 +24,9 @@
     <% attributes.each do |attribute| -%>
         <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
     <% end -%>
-        <td><%%= link_to 'Mostrar', <%= singular_table_name %> %></td>
-        <td><%%= link_to 'Editar', edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %></td>
-        <td><%%= link_to 'Excluir', <%= singular_table_name %>, method: :delete, data: { Confirme: 'Você tem certeza?' } %></td>
+        <td><%%= link_to 'Show', <%= singular_table_name %> %></td>
+        <td><%%= link_to 'Edit', edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %></td>
+        <td><%%= link_to 'Destroy', <%= singular_table_name %>, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       <%% end %>
     </tbody>
   </table>

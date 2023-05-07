@@ -65,6 +65,6 @@ class ReservasController < UsuariosController
 
     # Only allow a list of trusted parameters through.
     def reserva_params
-      params.require(:reserva).permit(:veiculo_id, :cliente_id, :tempo_de_espera, :valor_alugado, :reservado_de, :reservado_ate, :pagamento_no_destino)
+      params.require(:reserva).permit(:veiculo_id, :usuario_id, :tempo_de_espera, :valor_alugado, :reservado_de, :reservado_ate, :pagamento_no_destino)
     end
 end
