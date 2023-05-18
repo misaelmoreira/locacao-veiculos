@@ -67,7 +67,7 @@
                                 </dd>
                             </dl>
                         </div>
-                        <input type="submit" value="Alugar" class="btn btn-success" style="margin: auto; display: block; padding: 9px 32px; font-size: 1.2em;">   
+                        <input type="submit" value="Alugar" class="btn btn-success" style="margin: auto; display: block; padding: 9px 32px; font-size: 1.2em;" onclick="finalizarPagamento(event, <%= @valor_veiculo %>, <%= @veiculo.id %>)">   
                 </div>  
             </div>
             <div class="row mt-3">
@@ -75,25 +75,25 @@
                     <div class="form-group">
                         <div class='col-sm-12'>
                             <%= label_tag :cardNumber, "Numero do Cartão" %>
-                            <input class="form-control credit_card" type="text" name="cardNumber">
+                            <input class="form-control credit_card" type="text" name="cardNumber" id="cardNumber">
                         </div> 
                     </div>     
                     <div class="form-group">
                         <div class='col-sm-12'>
                             <%= label_tag :cardName, "Nome do Cartão" %>
-                            <input class="form-control" type="text" name="cardName">
+                            <input class="form-control" type="text" name="cardName" id="cardName">
                         </div> 
                     </div>  
                     <div class="form-group">
                         <div class='col-sm-12'>
                             <%= label_tag :expirationDate, "Data de validade" %>
-                            <input class="form-control" type="date" name="expirationDate">
+                            <input class="form-control" type="month" name="expirationDate" id="expirationDate">
                         </div> 
                     </div>  
                     <div class="form-group">
                         <div class='col-sm-12'>
                             <%= label_tag :cvv, "CVV" %>
-                            <input class="form-control cvv" type="text" name="cvv">
+                            <input class="form-control cvv" type="text" name="cvv" id="cvv">
                       </div> 
                     </div>  
                 </div>
@@ -102,13 +102,6 @@
     </div>
 </div>
 
-
-<script>
-    function atualizaTotal(valorVeiculo) {
-        const qntDias = document.getElementById('dias').value;
-        document.getElementById('valorTotal').innerText = `R$ ${parseInt(qntDias) * valorVeiculo}`;
-    }
-</script>
 
 <style>
 
@@ -150,4 +143,105 @@
 <script>
     $('.credit_card').mask('0000.0000.0000.0000');
     $('.cvv').mask('000');
+
+    PagSeguroDirectPayment.setSessionId("<%= @session_id %>");
+
+    function atualizaTotal(e, valorVeiculo) {
+        const qntDias = document.getElementById('dias').value;
+        document.getElementById('valorTotal').innerText = `R$ ${parseInt(qntDias) * valorVeiculo}`;
+    }
+
+
+    
+    finalizarPagamento(e, valor_veiculo, veiculo_id) {
+        e.preventDefault();
+        const cardNumber = document.getElementById("cardNumber").value;
+        const cardNumberFiltered = cardNumber.replaceAll('.', '');
+        const bin = cardNumberFiltered.substring(0,6);
+
+        const cardName = document.getElementById("cardName").value;
+
+        const expirationDate = document.getElementById("expirationDate").value;
+        const expirationMonth = expirationDate.split('-')[1];
+        const expirationYear = expirationDate.split('-')[0];
+
+        const cvv = document.getElementById("cvv").value;        
+
+        const qntDias = document.getElementById('dias').value;
+        const valorTotal = valor_veiculo * qntDias;
+
+        PagSeguroDirectPayment.getPaymentMethods({
+            amount: valorTotal,
+            success: function(response){
+                PagSeguroDirectPayment.onSenderHashReady( function(response){
+                    if(response.status == 'error') {
+                        console.log();
+                        return false;
+                    }
+                    var hash = response.senderHash;
+                    setTimeout(function(){
+
+                    }
+                    PagSeguroDirectPayment.getBrand({
+                        cardBin: bin,
+                        success: function(response) {
+                            const brand = response.brand.name;
+                            PagSeguroDirectPayment.getInstallments({
+                                amount: valorTotal,
+                                maxInstallmentNoInterest: 12, //ate quanto parcelado sem juros
+                                brand: brand,
+                                success: function(response) {
+                                    PagSeguroDirectPayment.createCardToken({
+                                        cardNumber: cardNumberFiltered,
+                                        brand: brand,
+                                        cvv: cvv,
+                                        expirationMonth: expirationMonth,
+                                        expirationYear: expirationYear,
+                                        success: function(response){
+                                            $.post("/alugar/" + veiculo_id, {
+                                                dias = qntDias,
+                                                token = response.card.token,
+                                                senderHash= hash,
+                                            }, function (data, status){
+
+                                            }) 
+                                        },
+                                        error: function(response){
+                                            alert('Erro ao tentar gerar token de cartao de credito');
+                                        },
+                                        complete: function(response){
+
+                                        }
+                                    })
+                                },
+                                error: function(response){
+                                    alert('Erro ao verifiicar quantidade de parcelas disponiveis ');
+                                },
+                                complete: function(response) {
+                                    // padrao
+                                }                                                         
+                            })
+                        },
+                        error: function(response) {
+                            alert('Erro ao checar bandeira docartao de credito');
+                        },
+                        complete: function(response){
+                            //tratamento comum para todas as chamadas
+                        }
+                    });
+                    , 3000)
+                })
+
+            },
+            error: function(){
+                alert('Erro ao gerar hash de pagamento');
+            },
+            complete: function(){
+                // to do 
+            }
+        });
+    }
+
+    
+
 </script>
