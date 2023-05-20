@@ -43,5 +43,8 @@ Reserva.create(veiculo_id: Veiculo.first.id, cliente_id: Cliente.first.id, tempo
 # Adicionando migrations
 rails g migration addLoginToUsuario login:string
 
+# usando o hackattack habilitar o cache da app
+rails dev:cache
 
-#  01:02:27
+
+# 00:55:51

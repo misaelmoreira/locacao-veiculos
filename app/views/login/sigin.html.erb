@@ -12,6 +12,7 @@
     <input type="checkbox" class="form-check-input" id="lembrar">
     <label class="form-check-label" for="exampleCheck1" name="lembrar">Check me out</label>
   </div>
+  <input type="hidden" value="<%= form_authenticity_token %>" name="authenticity_token">
 
   <button type="submit" class="btn btn-primary">Logar</button>
 </form>

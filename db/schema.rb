@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_18_085322) do
+ActiveRecord::Schema.define(version: 2023_05_20_013536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2023_05_18_085322) do
     t.string "senha"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "senha_hash"
   end
 
   create_table "clientes", force: :cascade do |t|
@@ -70,6 +71,8 @@ ActiveRecord::Schema.define(version: 2023_05_18_085322) do
     t.string "complemento"
     t.datetime "data_nascimento"
     t.string "bairro"
+    t.string "hash_senha"
+    t.string "senha_hash"
   end
 
   create_table "veiculos", force: :cascade do |t|
