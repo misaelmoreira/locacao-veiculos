@@ -11,7 +11,6 @@ class Administrador < ApplicationRecord
     end
 
     def self.login(login, senha)
-        debugger
         administrador = Administrador.find_by(login: login)
         if administrador.present? && administrador.authenticate(senha)
             administrador
@@ -20,9 +19,9 @@ class Administrador < ApplicationRecord
         end
     end
 
-    def self.login(login, senha)
-        Administrador.find_by(login: login, senha: senha)
-    end
+    # def self.login(login, senha)
+    #     Administrador.find_by(login: login, senha: senha)
+    # end
 
     def authenticate(senha)
         if self.senha == senha

@@ -108,6 +108,7 @@ class LojaController < UsuariosController
       @session_id = response.parsed_response["session"]["id"]
     end    
   end
+  
   def set_veiculo
     @veiculo = Veiculo.find(params[:id])
   end
