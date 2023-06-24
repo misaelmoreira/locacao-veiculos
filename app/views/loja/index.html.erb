@@ -1,4 +1,3 @@
-        
 <!-- Header-->
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
@@ -9,7 +8,7 @@
     </div>
 </header>
 <!-- Section Veiculo-->
-<% Veiculo.all.each do |veiculo|%>
+<% @veiculos.each do |veiculo|%>
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row ">
@@ -18,7 +17,7 @@
                     <!-- Product image-->
                     <a href="/loja/locacao/<%= veiculo.id%>">
                         <% if veiculo.foto.attached? %>
-                            <%= image_tag veiculo.foto, class: "card-img-top imgCarros" %>                           
+                            <%= image_tag veiculo.foto, class: "card-img-top imgCarros" %>
                         <% end %>
                     </a>
                     <!-- Product details-->
@@ -27,29 +26,29 @@
                             <!-- Product name-->
                             <h5 class="fw-bolder"><%= veiculo.nome %></h5>
                             <!-- Product price-->
-                            <%= number_to_currency(veiculo.valor)%>                                    
+                            <%= number_to_currency(veiculo.valor)%>
                             <div class="detalhesVeiculos">
                                 <div class="detalhesVeiculoContainer">
                                     <p>Cor</p>
                                     <p class="card-text"><%= veiculo.cor%></p>
                                 </div>
-                                <div class="detalhesVeiculoContainer"> 
+                                <div class="detalhesVeiculoContainer">
                                     <p>Qnt de Passageiros</p>
                                     <p class="card-text"><%= veiculo.qnt_passageiros%></p>
                                 </div>
                                 <div class="detalhesVeiculoContainer" >
                                     <p>Marca</p>
                                     <p class="card-text"><%= veiculo.marca.nome%></p>
-                                </div>                                        
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Product actions-->                            
+                    <!-- Product actions-->
                 </div>
-            </div>                    
+            </div>
         </div>
     </div>
 </section>
 <% end %>
 <!-- Fim Section Veiculo-->
-        
+

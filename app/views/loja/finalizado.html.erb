@@ -1,0 +1,27 @@
+<div class='row'>
+    <h1 style="text-align:center; width: 100%">Obrigado por adquirir um de nossos veiculos</h1>
+</div>
+
+<div class='row'>
+    <h3 style="text-align:center; width: 100%"> Reserva n <%= @Reserva.reserva_id%> </h3>
+</div>
+
+<div class='row'>
+    <h3 style="text-align:center; width: 100%; color: red"> Veiculo <%= @veiculo.nome %> </h3>
+    <div style='text-align:center; width: 100%'>
+        <% if @veiculo.foto.attached? %>
+            <%= image_tag veiculo.foto, class: "card-img-top imgCarros" %>
+        <% end %>
+    </div>
+</div>
+
+<div class='row'>
+    <%= link_to "voltar para página inicial", '/', style="display: block; margin:auto; margin-top: 35px;" %>
+</div>
+
+
+<style>
+    .image {
+        height: 230px;
+    }
+</style>

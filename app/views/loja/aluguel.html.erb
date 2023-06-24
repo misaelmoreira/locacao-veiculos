@@ -1,26 +1,26 @@
 <div class="container">
     <div class="row">
         <form action="/alugar/<%= @veiculo.id %>" method="POST">
-            <div class="row" >        
-                <div class="col-lg-7 itemLista">              
+            <div class="row" >
+                <div class="col-lg-7 itemLista">
                     <div class="col-lg-4">
-                        <p><%= @veiculo.nome %></p>  
+                        <p><%= @veiculo.nome %></p>
                         <img href="" src="https://combustivel.app/imgs/t650/consumo-onix-lt-1-0.jpg" style="width: 100%"/>
-                    </div>        
+                    </div>
                     <div class="col-lg-6 detalhesContainer">
                         <div class="detalhesVeiculo">
                             <p class="card-text">Qntd Passageiros</p>
-                            <p><%= @veiculo.qnt_passageiros %></p>      
+                            <p><%= @veiculo.qnt_passageiros %></p>
                         </div>
                         <div class="detalhesVeiculo">
                             <p class="card-text">Marca</p>
-                            <p><%= @veiculo.marca.nome %></p>      
+                            <p><%= @veiculo.marca.nome %></p>
                         </div>
                         <div class="detalhesVeiculo">
                             <p class="card-text">Cor</p>
-                            <p><%= @veiculo.cor %></p>      
-                        </div>   
-                    </div>        
+                            <p><%= @veiculo.cor %></p>
+                        </div>
+                    </div>
                     <div class="col-lg-6 ofertasInfo">
                         <h4>Incluso no preço:</h4>
                         <div class="row">
@@ -37,9 +37,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                
+                        </div>
                     </div>
-                </div> 
+                </div>
                 <div class="col-lg-4 pagamentoContainer">
                         <div class="col-sm-12">
                             <div class="row" style="border-bottom: 1px solid #fff;">
@@ -67,8 +67,8 @@
                                 </dd>
                             </dl>
                         </div>
-                        <input type="submit" value="Alugar" class="btn btn-success" style="margin: auto; display: block; padding: 9px 32px; font-size: 1.2em;" onclick="finalizarPagamento(event, <%= @valor_veiculo %>, <%= @veiculo.id %>)">   
-                </div>  
+                        <input type="submit" value="Alugar" class="btn btn-success" style="margin: auto; display: block; padding: 9px 32px; font-size: 1.2em;" onclick="finalizarPagamento(event, <%= @veiculo.valor %>, <%= @veiculo.id %>)">
+                </div>
             </div>
             <div class="row mt-3">
                 <div class="col-sm-12" style="max-width: 500px; margin: auto;">
@@ -76,38 +76,40 @@
                         <div class='col-sm-12'>
                             <%= label_tag :cardNumber, "Numero do Cartão" %>
                             <input class="form-control credit_card" type="text" name="cardNumber" id="cardNumber">
-                        </div> 
-                    </div>     
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class='col-sm-12'>
                             <%= label_tag :cardName, "Nome do Cartão" %>
                             <input class="form-control" type="text" name="cardName" id="cardName">
-                        </div> 
-                    </div>  
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class='col-sm-12'>
                             <%= label_tag :expirationDate, "Data de validade" %>
                             <input class="form-control" type="month" name="expirationDate" id="expirationDate">
-                        </div> 
-                    </div>  
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class='col-sm-12'>
                             <%= label_tag :cvv, "CVV" %>
                             <input class="form-control cvv" type="text" name="cvv" id="cvv">
-                      </div> 
-                    </div>  
+                      </div>
+                    </div>
                 </div>
             </div>
         </form>
     </div>
 </div>
-
+<div class="loaderContainer" style="display: none;">
+    <div class="loader"></div>
+<div>
 
 <style>
 
 .pagamentoContainer{
     background-color: #ccc;
-    margin-left: 25px; 
+    margin-left: 25px;
     padding: 15px;
     min-height: 250px
 }
@@ -122,7 +124,7 @@
 
 .itemLista{
     background-color: #ccc;
-    padding: 15px;    
+    padding: 15px;
     min-height: 250px;
 }
 
@@ -138,22 +140,57 @@
     font-size: 1.1em;
 }
 
+.loaderContainer{
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.2);
+}
+
+.loader{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 35%;
+    margin: auto;
+    border: 12px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #43db34;
+    width: 90px;
+    height: 90px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-keyframes: rotate(0deg) }
+    100% { -webkit-keyframes:  rotate(360deg) }
+}
+
+@keyframes spin{
+    0% { transform: rotate(0deg) }
+    100% { transform:  rotate(360deg) }
+}
+
+
 </style>
 
 <script>
     $('.credit_card').mask('0000.0000.0000.0000');
     $('.cvv').mask('000');
 
-    PagSeguroDirectPayment.setSessionId("<%= @session_id %>");
+    //PagSeguroDirectPayment.setSessionId("<%= @session_id %>");
 
     function atualizaTotal(e, valorVeiculo) {
         const qntDias = document.getElementById('dias').value;
         document.getElementById('valorTotal').innerText = `R$ ${parseInt(qntDias) * valorVeiculo}`;
     }
 
+    function finalizarPagamento(e, valor_veiculo, veiculo_id) {
+        document.querySelector('.loaderContainer').style.display = "block";
 
-    
-    finalizarPagamento(e, valor_veiculo, veiculo_id) {
         e.preventDefault();
         const cardNumber = document.getElementById("cardNumber").value;
         const cardNumberFiltered = cardNumber.replaceAll('.', '');
@@ -165,7 +202,7 @@
         const expirationMonth = expirationDate.split('-')[1];
         const expirationYear = expirationDate.split('-')[0];
 
-        const cvv = document.getElementById("cvv").value;        
+        const cvv = document.getElementById("cvv").value;
 
         const qntDias = document.getElementById('dias').value;
         const valorTotal = valor_veiculo * qntDias;
@@ -180,8 +217,6 @@
                     }
                     var hash = response.senderHash;
                     setTimeout(function(){
-
-                    }
                     PagSeguroDirectPayment.getBrand({
                         cardBin: bin,
                         success: function(response) {
@@ -198,15 +233,17 @@
                                         expirationMonth: expirationMonth,
                                         expirationYear: expirationYear,
                                         success: function(response){
+                                            var url = "/alugar/"+ veiculo_id
                                             $.post("/alugar/" + veiculo_id, {
-                                                dias = qntDias,
-                                                token = response.card.token,
-                                                senderHash= hash,
+                                                dias: qntDias,
+                                                token: response.card.token,
+                                                senderHash: hash,
                                             }, function (data, status){
-
-                                            }) 
+                                                document.querySelector('.loaderContainer').style.display = "none";
+                                            })
                                         },
                                         error: function(response){
+                                            document.querySelector('.loaderContainer').style.display = "none";
                                             alert('Erro ao tentar gerar token de cartao de credito');
                                         },
                                         complete: function(response){
@@ -215,20 +252,23 @@
                                     })
                                 },
                                 error: function(response){
+                                    document.querySelector('.loaderContainer').style.display = "none";
                                     alert('Erro ao verifiicar quantidade de parcelas disponiveis ');
                                 },
                                 complete: function(response) {
                                     // padrao
-                                }                                                         
+                                }
                             })
                         },
-                        error: function(response) {
+                        error: function(response){
+                            document.querySelector('.loaderContainer').style.display = "none"
                             alert('Erro ao checar bandeira docartao de credito');
                         },
                         complete: function(response){
                             //tratamento comum para todas as chamadas
                         }
                     });
+                    }
                     , 3000)
                 })
 
@@ -237,11 +277,8 @@
                 alert('Erro ao gerar hash de pagamento');
             },
             complete: function(){
-                // to do 
+                // to do
             }
         });
     }
-
-    
-
 </script>

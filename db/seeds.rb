@@ -5,3 +5,26 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+puts " =========== Criando Admnistrador ======================="
+Administrador.create(nome: "Misael", login: "misael@teste.com", senha: "123")
+puts " =========== Admnistrador Criado ======================="
+
+puts " =========== Criando Usuario ======================="
+Usuario.create(nome: "misael", cpf: "999.999.999-99", cep: "15110-000", endereco: "Leocadia", numero: 123, estado: "SP", login: "misael@teste.com", senha: "123", cidade: "campinas", comlemento: "bl01", data_nascimento: "12/02/2000")
+puts " =========== Usuario Criado ======================="
+
+puts " =========== Criando Marcas e Veiculos ======================="
+if marca = Marca.create(nome: "Hyundai")
+    Veiculo.create(nome: "HB20", cor: "Preto", qnt_passageiros: 5, placa: "HPP-4510", valor: 120, marca_id: marca.id)
+end
+
+if marca = Marca.create(nome: "Ford")
+    Veiculo.create(nome: "Escort", cor: "Branco", qnt_passageiros: 5, placa: "PPP-4510", valor: 100, marca_id: marca.id)
+end
+
+if marca = Marca.create(nome: "Volkswagen")
+    Veiculo.create(nome: "Fusca", cor: "Rosa", qnt_passageiros: 5, placa: "PYY-4510", valor: 90 , marca_id: marca.id)
+end
+puts " =========== Marcas e Veiculos Criados ======================="

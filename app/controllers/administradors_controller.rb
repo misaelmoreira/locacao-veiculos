@@ -3,12 +3,18 @@ class AdministradorsController < ApplicationController
   before_action :authenticate_admin!
 
   def authenticate_admin!
-    if cookies[:administrador].blank?
+    return if request.path_parameters[:format] == 'json'
+
+    if cookies[:administrador].present?
+      administrador_id = JsonWebToken.decode(cookies[:administrador])['id']
+      unless Administrador.find(administrador_id).present?
+        redirect_to '/administrador/login'
+        nil
+      end
+    else
       redirect_to '/administrador/login'
     end
-  end 
-
-  
+  end
   # GET /administradors or /administradors.json
   def index
     @administradors = Administrador.all
@@ -35,7 +41,7 @@ class AdministradorsController < ApplicationController
 
     respond_to do |format|
       if @administrador.save
-        format.html { redirect_to administrador_url(@administrador), notice: "Administrador was successfully created." }
+        format.html { redirect_to administrador_url(@administrador), notice: 'Administrador was successfully created.' }
         format.json { render :show, status: :created, location: @administrador }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -49,7 +55,7 @@ class AdministradorsController < ApplicationController
     set_administrador
     respond_to do |format|
       if @administrador.update(administrador_params)
-        format.html { redirect_to administrador_url(@administrador), notice: "Administrador was successfully updated." }
+        format.html { redirect_to administrador_url(@administrador), notice: 'Administrador was successfully updated.' }
         format.json { render :show, status: :ok, location: @administrador }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -64,19 +70,20 @@ class AdministradorsController < ApplicationController
     @administrador.destroy
 
     respond_to do |format|
-      format.html { redirect_to administradors_url, notice: "Administrador was successfully destroyed." }
+      format.html { redirect_to administradors_url, notice: 'Administrador was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_administrador
-      @administrador = Administrador.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def administrador_params
-      params.require(:administrador).permit(:nome, :login, :senha, :senha_hash)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_administrador
+    @administrador = Administrador.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def administrador_params
+    params.require(:administrador).permit(:nome, :login, :senha, :senha_hash)
+  end
 end
