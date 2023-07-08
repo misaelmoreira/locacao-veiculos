@@ -1,4 +1,4 @@
-class LoginController < ApplicationController
+class LoginController < UsuariosController
   def sigin; end
 
   def cadastrar; end
@@ -7,6 +7,7 @@ class LoginController < ApplicationController
 
   def login_pagamento
     return unless params[:dias].present? && params[:token].present? && params[:senderHash].present?
+
     @dias = params[:dias].to_i
     @token_pagamento = params[:token]
     @hash_comprador = params[:senderHash]
@@ -24,14 +25,14 @@ class LoginController < ApplicationController
   def logar
     usuario = Usuario.login(params[:login], params[:senha])
 
-    if usuario.present?
-      if usuario.senha == params[:senha]
-        cookies[:usuario] = usuario.encoded["id"]
-        redirect_to '/'
-        return
-      end
-      render :login
+    return unless usuario.present?
+
+    if usuario.senha == params[:senha]
+      cookies[:usuario] = usuario.encoded['id']
+      redirect_to '/'
+      return
     end
+    render :login
   end
 
   def logout

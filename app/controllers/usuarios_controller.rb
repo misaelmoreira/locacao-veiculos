@@ -1,7 +1,7 @@
 class UsuariosController < ApplicationController
   layout 'usuarios'
   before_action :set_usuario, only: %i[show edit update destroy]
-  before_action :authenticate_user!, except: %i[login logar login_api]
+  before_action :authenticate_user!, except: %i[login logar login_api cadastrar new create]
 
   def authenticate_user!
     if request.format.json?
@@ -45,7 +45,7 @@ class UsuariosController < ApplicationController
 
     respond_to do |format|
       if @usuario.save
-        cookies[:usuarios] = @usuario.id
+        cookies[:usuarios] = @usuario.encoded["id"]
         format.html { redirect_to '/', notice: 'Usuario was successfully created.' }
         format.json { render :show, status: :created, location: @usuario }
       else

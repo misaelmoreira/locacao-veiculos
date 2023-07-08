@@ -47,4 +47,14 @@ rails g migration addLoginToUsuario login:string
 rails dev:cache
 
 
-# 00:55:51
+# criando tabela no banco de dados
+rails active_storage:install
+
+# Removendo image
+Veivulo.find().foto.purge
+
+
+# Limpando base de dados
+Rails db:reset
+
+# 00:00:00 - 17
