@@ -16,6 +16,10 @@
 #
 default: &default
   adapter: postgresql
+  poll: 5
+  username: postgres
+  password: postgres
+  host: 127.0.0.1
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
@@ -23,7 +27,7 @@ default: &default
 
 development:
   <<: *default
-  database: locacao-veiculos_development
+  database: locacao_veiculos_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,7 +61,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: locacao-veiculos_test
+  database: locacao_veiculos_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -80,6 +84,6 @@ test:
 #
 production:
   <<: *default
-  database: locacao-veiculos_production
+  database: locacao_veiculos_production
   username: locacao-veiculos
   password: <%= ENV['LOCACAO-VEICULOS_DATABASE_PASSWORD'] %>

@@ -1,11 +1,10 @@
 class UsuariosAdministradorsController < ApplicationController
   before_action :set_usuario, only: %i[ show edit update destroy ]
 
-
   # GET /usuarios or /usuarios.json
   def index
     @usuarios = Usuario.all
-  end  
+  end
 
   # GET /usuarios/new
   def new
@@ -66,4 +65,3 @@ class UsuariosAdministradorsController < ApplicationController
       params.require(:usuario).permit(:nome, :cpf, :endereco, :numero, :cep, :estado, :login, :senha)
     end
 end
-

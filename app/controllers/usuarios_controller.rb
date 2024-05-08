@@ -7,7 +7,7 @@ class UsuariosController < ApplicationController
     if request.format.json?
       render json: {}, status: :unauthorized unless user_authorized?
     elsif cookies[:usuario].present?
-      usuario_id = JsonWebToken.decode(cookies[:usuario])['id']
+      usuario_id = cookies[:usuario]
       unless Usuario.find(usuario_id).present?
         redirect_to '/login'
         nil
@@ -18,6 +18,7 @@ class UsuariosController < ApplicationController
   end
 
   def user_authorized?
+    debugger
     if request.headers[:UsuarioToken].present?
       token = request.headers[:UsuarioToken]
       usuario_id = JsonWebToken.decode(token)['id']
@@ -37,7 +38,7 @@ class UsuariosController < ApplicationController
   end
 
   # GET /usuarios/1/edit
-  def edit; end
+  def edit;end
 
   # POST /usuarios or /usuarios.json
   def create
@@ -87,7 +88,19 @@ class UsuariosController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def usuario_params
-    params.require(:usuario).permit(:nome, :cpf, :endereco, :numero, :cep, :estado, :login, :senha, :cidade,
-                                    :complemento, :data_nascimento, :bairro)
+    params.require(:usuario).permit(
+      :nome,
+      :cpf,
+      :endereco,
+      :numero,
+      :cep,
+      :estado,
+      :login,
+      :senha,
+      :cidade,
+      :complemento,
+      :data_nascimento,
+      :bairro
+    )
   end
 end

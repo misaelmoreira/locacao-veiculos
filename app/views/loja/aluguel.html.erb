@@ -106,48 +106,47 @@
 <div>
 
 <style>
+    .pagamentoContainer{
+        background-color: #ccc;
+        margin-left: 25px;
+        padding: 15px;
+        min-height: 250px
+    }
 
-.pagamentoContainer{
-    background-color: #ccc;
-    margin-left: 25px;
-    padding: 15px;
-    min-height: 250px
-}
+    .ofertasInfo{
+        padding-left: 5%;
+    }
 
-.ofertasInfo{
-    padding-left: 5%;
-}
+    .ofertasInfo p, .ofertasInfo h4{
+        color: green;
+    }
 
-.ofertasInfo p, .ofertasInfo h4{
-    color: green;
-}
+    .itemLista{
+        background-color: #ccc;
+        padding: 15px;
+        min-height: 250px;
+    }
 
-.itemLista{
-    background-color: #ccc;
-    padding: 15px;
-    min-height: 250px;
-}
+    .detalhesContainer{
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        border-bottom: 1px solid #000;
+    }
 
-.detalhesContainer{
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
-    border-bottom: 1px solid #000;
-}
+    .detalhesContainer .card-text {
+        font-weight: bold;
+        font-size: 1.1em;
+    }
 
-.detalhesContainer .card-text {
-    font-weight: bold;
-    font-size: 1.1em;
-}
-
-.loaderContainer{
-    top: 0;
-    left: 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.2);
-}
+    .loaderContainer{
+        top: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.2);
+    }
 
 .loader{
     position: absolute;
@@ -183,7 +182,7 @@
 
     //PagSeguroDirectPayment.setSessionId("<%= @session_id %>");
 
-    function atualizaTotal(e, valorVeiculo) {
+    function atualizaTotal(valorVeiculo) {
         const qntDias = document.getElementById('dias').value;
         document.getElementById('valorTotal').innerText = `R$ ${parseInt(qntDias) * valorVeiculo}`;
     }

@@ -10,19 +10,23 @@ gem 'record_tag_helper', '~> 1.0'
 # Lib cartao de credito
 gem 'card-js-rails', '~> 1.0', '>= 1.0.13.1'
 
-# jquery 
+# jquery
 gem 'jquery-rails', '~> 4.4'
 
 gem 'httparty'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.8', '>= 5.2.8.1'
+
 # Use postgresql as the database for Active Record
-gem 'pg', '>= 0.18', '< 2.0'
+gem 'pg', '~> 1.2', '>= 1.2.3'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -42,6 +46,8 @@ gem 'rack-attack'
 
 # Jason WebToken
 gem 'jwt'
+
+
 
 # Use ActiveStorage variant
 gem 'mini_magick', '~> 4.8'

@@ -92,7 +92,6 @@ ActiveRecord::Schema.define(version: 2023_05_22_081536) do
     t.string "complemento"
     t.datetime "data_nascimento"
     t.string "bairro"
-    t.string "hash_senha"
     t.string "senha_hash"
   end
 

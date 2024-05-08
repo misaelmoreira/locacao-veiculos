@@ -8,11 +8,11 @@
 
 
 puts " =========== Criando Admnistrador ======================="
-Administrador.create(nome: "Misael", login: "misael@teste.com", senha: "123")
+Administrador.create(nome: "teste", login: "teste@teste.com", senha: "123")
 puts " =========== Admnistrador Criado ======================="
 
 puts " =========== Criando Usuario ======================="
-Usuario.create(nome: "misael", cpf: "999.999.999-99", cep: "15110-000", endereco: "Leocadia", numero: 123, estado: "SP", login: "misael@teste.com", senha: "123", cidade: "campinas", comlemento: "bl01", data_nascimento: "12/02/2000")
+Usuario.create(nome: "teste", cpf: "999.999.999-99", cep: "15110-000", endereco: "Leocadia", numero: 123, estado: "SP", login: "misael@teste.com", senha: "123", cidade: "campinas", complemento: "bl01", data_nascimento: "12/02/2000", bairro: "Vossoroca")
 puts " =========== Usuario Criado ======================="
 
 puts " =========== Criando Marcas e Veiculos ======================="
@@ -25,6 +25,6 @@ if marca = Marca.create(nome: "Ford")
 end
 
 if marca = Marca.create(nome: "Volkswagen")
-    Veiculo.create(nome: "Fusca", cor: "Rosa", qnt_passageiros: 5, placa: "PYY-4510", valor: 90 , marca_id: marca.id)
+    Veiculo.create(nome: "Fusca", cor: "Rosa", qnt_passageiros: 5, placa: "PYY-4510", valor: 90, marca_id: marca.id)
 end
 puts " =========== Marcas e Veiculos Criados ======================="

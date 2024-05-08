@@ -25,13 +25,12 @@ class LoginController < ApplicationController
     usuario = Usuario.login(params[:login], params[:senha])
 
     if usuario.present?
-      if usuario.senha == params[:senha]
-        cookies[:usuario] = usuario.encoded["id"]
-        redirect_to '/'
-        return
-      end
-      render :login
+      debugger
+      cookies[:usuario] = usuario["id"]
+      redirect_to '/'
+      return
     end
+    render :login
   end
 
   def logout
